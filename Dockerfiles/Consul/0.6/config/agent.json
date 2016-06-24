@@ -1,0 +1,12 @@
+{
+	"client_addr": "0.0.0.0",
+	"ui": true,
+	"dns_config": {
+		"allow_stale": false
+	},
+
+	"ports": {
+	   "dns": 53
+	},
+	"recursor": "8.8.8.8"
+}

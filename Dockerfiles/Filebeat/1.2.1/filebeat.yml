@@ -1,0 +1,36 @@
+filebeat:
+  # List of prospectors to fetch data.
+  prospectors:
+    # Each - is a prospector. Below are the prospector specific configurations
+      # Paths that should be crawled and fetched. Glob based paths.
+      # For each file found under this path, a harvester is started.
+      #paths:
+      #  - "/var/log/apache/httpd-*.log"
+      # Type to be published in the 'type' field. For Elasticsearch output,
+      # the type defines the document type these entries should be stored
+      # in. Default: log
+    -
+      paths:
+        - /logs/*/*.log
+        - /logs/*/*/*.log
+        - /logs/*.log
+        - /dockerlogs/*/*-json.log
+      input_type: log
+
+  multiline:
+    pattern: ^\[
+    negate: true
+    match: after
+
+output:
+  logstash:
+    hosts: ["logstash00:9000", "logstash01:9000"]
+    loadbalance: true
+    index: filebeat
+    
+shipper:
+  name: "filebeat"
+  tags: ["tag"]
+
+
+
